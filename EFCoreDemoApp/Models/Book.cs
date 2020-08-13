@@ -9,7 +9,7 @@ namespace EFCoreDemoApp.Models
         public int Id { get; set; }
         public string Name { get; set; }
         public int BookBoxofficeId { get; set; }
-        public string Discriminator { get; set; }
+        public string Discriminator { get; }
 
         public ICollection<AuthorBook> AuthorBooks { get; set; }
         public BookBoxoffice Boxoffice { get; set; }
