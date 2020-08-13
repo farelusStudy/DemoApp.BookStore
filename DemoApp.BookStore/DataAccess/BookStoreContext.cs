@@ -1,4 +1,5 @@
 ﻿using BookStore.Models;
+using DemoApp.BookStore.DataAccess.Extensions;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -68,6 +69,8 @@ namespace BookStore.DataAccess
             {
                 entity.Property(sb => sb.Type);
             });
+
+            modelBuilder.Seed();
         }
     }
 }

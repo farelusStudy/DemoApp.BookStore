@@ -14,12 +14,7 @@ namespace BookStore
         {
             using (BookStoreContext db = new BookStoreContext())
             {
-                if (!File.Exists("BookStore.db"))
-                {
-                    db.Database.EnsureCreated();
-                    AuthorsAndBooksInit(db);
-                }
-
+                db.Database.EnsureCreated();
 
                 PrintAutorInfo(db);
 
@@ -230,59 +225,6 @@ namespace BookStore
             {
                 Console.WriteLine($"{u.Id})\t{u.Name}");
             }
-        }
-
-        /// <summary>
-        /// Инициализация авторов и их книг, настройка связей между ними. Добавление всего в БД.
-        /// </summary>
-        /// <param name="db"></param>
-        static void AuthorsAndBooksInit(BookStoreContext db)
-        {
-            Author author1 = new Author() { FirstName = "Иван", SurnameName = "Иванов" };
-            Author author2 = new Author() { FirstName = "Андрей", SurnameName = "Попов" };
-            Author author3 = new Author() { FirstName = "Елена", SurnameName = "Наумова" };
-
-            Book book1 = new Book() { Name = "Book1" };
-            Book book2 = new Book() { Name = "Book2" };
-            Book book3 = new Book() { Name = "Book3" };
-
-            ScienceBook mkb1 = new ScienceBook() { Name = "МКБ1", Type = "Справочник" };
-            ScienceBook mkb2 = new ScienceBook() { Name = "МКБ2", Type = "Справочник" };
-            ScienceBook mkb3 = new ScienceBook() { Name = "МКБ3", Type = "Справочник" };
-
-            Magazine magazine1 = new Magazine() { Name = "Чистый дом1", ReaderType = "Для домохозяек" };
-            Magazine magazine2 = new Magazine() { Name = "Чистый дом2", ReaderType = "Для домохозяек" };
-            Magazine magazine3 = new Magazine() { Name = "Чистый дом3", ReaderType = "Для домохозяек" };
-
-            author1.AuthorBooks.Add(new AuthorBook() { Book = book1 });
-            author1.AuthorBooks.Add(new AuthorBook() { Book = book2 });
-            author1.AuthorBooks.Add(new AuthorBook() { Book = book3 });
-
-            db.AuthorBooks.Add(new AuthorBook() { Author = author2, Book = mkb1 });
-            db.AuthorBooks.Add(new AuthorBook() { Author = author2, Book = mkb2 });
-            db.AuthorBooks.Add(new AuthorBook() { Author = author2, Book = mkb3 });
-
-            db.AuthorBooks.Add(new AuthorBook() { Author = author3, Book = magazine1 });
-            db.AuthorBooks.Add(new AuthorBook() { Author = author3, Book = magazine2 });
-            db.AuthorBooks.Add(new AuthorBook() { Author = author3, Book = magazine3 });
-
-            db.Authors.Add(author1);
-            db.Authors.Add(author2);
-            db.Authors.Add(author3);
-
-            db.Books.Add(book1);
-            db.Books.Add(book2);
-            db.Books.Add(book3);
-
-            db.ScienceBooks.Add(mkb1);
-            db.ScienceBooks.Add(mkb2);
-            db.ScienceBooks.Add(mkb3);
-
-            db.Magazines.Add(magazine1);
-            db.Magazines.Add(magazine2);
-            db.Magazines.Add(magazine3);
-
-            db.SaveChanges();
         }
 
         /// <summary>
