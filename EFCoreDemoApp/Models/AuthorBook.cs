@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace EFCoreDemoApp.Models
+namespace BookStore.Models
 {
     class AuthorBook
     {

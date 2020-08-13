@@ -1,13 +1,13 @@
-﻿using EFCoreDemoApp.Models;
+﻿using BookStore.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks.Sources;
 
-namespace EFCoreDemoApp.DataAccess
+namespace BookStore.DataAccess
 {
-    class DemoAppContext : DbContext
+    class BookStoreContext : DbContext
     {
         public virtual DbSet<Book> Books { get; set; }
         public virtual DbSet<Magazine> Magazines { get; set; }
@@ -16,13 +16,13 @@ namespace EFCoreDemoApp.DataAccess
         public virtual DbSet<Author> Authors { get; set; }
         public virtual DbSet<AuthorBook> AuthorBooks { get; set; }
 
-        public DemoAppContext()
+        public BookStoreContext()
         {
 
         }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlite(@"Data Source=DemoAppDb.db;");
+            optionsBuilder.UseSqlite(@"Data Source=BookStore.db;");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -59,13 +59,6 @@ namespace EFCoreDemoApp.DataAccess
                         .HasForeignKey(ab => ab.BookId);
             });
 
-            modelBuilder.Entity<BookBoxoffice>(entity =>
-            {
-                entity.HasOne(b => b.Book)
-                        .WithOne(bf => bf.Boxoffice)
-                        .HasForeignKey<BookBoxoffice>(bf => bf.BookId);
-            });
-
             modelBuilder.Entity<Magazine>(entity =>
             {
                 entity.Property(m => m.ReaderType);
@@ -73,7 +66,7 @@ namespace EFCoreDemoApp.DataAccess
 
             modelBuilder.Entity<ScienceBook>(entity =>
             {
-                entity.Property(sb => sb.Genre);
+                entity.Property(sb => sb.Type);
             });
         }
     }
